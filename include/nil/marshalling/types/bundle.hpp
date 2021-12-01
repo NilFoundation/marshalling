@@ -93,10 +93,10 @@ namespace nil {
 
             public:
                 /// @brief endian_type used for serialization.
-                using endian_type = typename base_impl_type::endian_type;
+                using typename base_impl_type::endian_type;
 
                 /// @brief Version type
-                using version_type = typename base_impl_type::version_type;
+                using typename base_impl_type::version_type;
 
                 /// @brief All the options provided to this class bundled into struct.
                 using parsed_options_type = detail::options_parser<TOptions...>;
@@ -107,7 +107,7 @@ namespace nil {
                 /// @brief Value type.
                 /// @details Same as TMemebers template argument, i.e. it is std::tuple
                 ///     of all the wrapped fields.
-                using value_type = typename base_impl_type::value_type;
+                using typename base_impl_type::value_type;
 
                 /// @brief Default constructor
                 /// @details Invokes default constructor of every wrapped field
@@ -122,22 +122,13 @@ namespace nil {
                 }
 
                 /// @brief Get access to the stored tuple of fields.
-                value_type &value() {
-                    return base_impl_type::value();
-                }
-
-                /// @brief Get access to the stored tuple of fields.
-                const value_type &value() const {
-                    return base_impl_type::value();
-                }
+                using base_impl_type::value;
 
                 /// @brief Get length required to serialise bundled fields.
                 /// @details Summarises all the results returned by the call to length() for
                 ///     every field in the bundle.
                 /// @return Number of bytes it will take to serialise the field value.
-                std::size_t length() const {
-                    return base_impl_type::length();
-                }
+                using base_impl_type::length;
 
                 /// @brief Get length required to serialise specified bundled member fields.
                 /// @details Summarises all the results returned by the call to length() for
@@ -145,10 +136,7 @@ namespace nil {
                 /// @tparam TFromIdx Index of the field (included) from which the counting must start.
                 /// @return Number of bytes it will take to serialise the specified member fields.
                 /// @pre TFromIdx < std::tuple_size<value_type>::value
-                template<std::size_t TFromIdx>
-                std::size_t length_from() const {
-                    return base_impl_type::template length_from<TFromIdx>();
-                }
+                using base_impl_type::length_from;
 
                 /// @brief Get length required to serialise specified bundled member fields.
                 /// @details Summarises all the results returned by the call to length() for
@@ -156,10 +144,7 @@ namespace nil {
                 /// @tparam TUntilIdx Index of the field (not included) until which the counting must be performed.
                 /// @return Number of bytes it will take to serialise the specified member fields.
                 /// @pre TUntilIdx <= std::tuple_size<value_type>::value
-                template<std::size_t TUntilIdx>
-                std::size_t length_until() const {
-                    return base_impl_type::template length_until<TUntilIdx>();
-                }
+                using base_impl_type::length_until;
 
                 /// @brief Get length required to serialise specified bundled member fields.
                 /// @details Summarises all the results returned by the call to length() for
@@ -169,34 +154,23 @@ namespace nil {
                 /// @return Number of bytes it will take to serialise the specified member fields.
                 /// @pre TUntilIdx <= std::tuple_size<value_type>::value
                 /// @pre TFromIdx < TUntilIdx
-                template<std::size_t TFromIdx, std::size_t TUntilIdx>
-                std::size_t length_from_until() const {
-                    return base_impl_type::template length_from_until<TFromIdx, TUntilIdx>();
-                }
+                using base_impl_type::length_from_until;
 
                 /// @brief Get minimal length that is required to serialise all bundled fields.
                 /// @return Minimal number of bytes required serialise the field value.
-                static constexpr std::size_t min_length() {
-                    return base_impl_type::min_length();
-                }
+                using base_impl_type::min_length;
 
                 /// @brief Get minimal length that is required to serialise specified bundled fields.
                 /// @tparam TFromIdx Index of the field (included) from which the counting must start.
                 /// @return Minimal number of bytes required to serialise the specified member fields.
                 /// @pre TFromIdx < std::tuple_size<value_type>::value
-                template<std::size_t TFromIdx>
-                static constexpr std::size_t min_length_from() {
-                    return base_impl_type::template min_length_from<TFromIdx>();
-                }
+                using base_impl_type::min_length_from;
 
                 /// @brief Get minimal length that is required to serialise specified bundled fields.
                 /// @tparam TUntilIdx Index of the field (not included) until which the counting must be performed.
                 /// @return Minimal number of bytes required to serialise the specified member fields.
                 /// @pre TUntilIdx <= std::tuple_size<value_type>::value
-                template<std::size_t TUntilIdx>
-                static constexpr std::size_t min_length_until() {
-                    return base_impl_type::template min_length_until<TUntilIdx>();
-                }
+                using base_impl_type::min_length_until;
 
                 /// @brief Get minimal length that is required to serialise specified bundled fields.
                 /// @tparam TFromIdx Index of the field (included) from which the counting must start.
@@ -204,34 +178,23 @@ namespace nil {
                 /// @return Minimal number of bytes required to serialise the specified member fields.
                 /// @pre TUntilIdx <= std::tuple_size<value_type>::value
                 /// @pre TFromIdx < TUntilIdx
-                template<std::size_t TFromIdx, std::size_t TUntilIdx>
-                static constexpr std::size_t min_length_from_until() {
-                    return base_impl_type::template min_length_from_until<TFromIdx, TUntilIdx>();
-                }
+                using base_impl_type::min_length_from_until;
 
                 /// @brief Get maximal length that is required to serialise all bundled fields.
                 /// @return Maximal number of bytes required serialise the field value.
-                static constexpr std::size_t max_length() {
-                    return base_impl_type::max_length();
-                }
+                using base_impl_type::max_length;
 
                 /// @brief Get maximal length that is required to serialise specified bundled fields.
                 /// @tparam TFromIdx Index of the field (included) from which the counting must start.
                 /// @return Minimal number of bytes required to serialise the specified member fields.
                 /// @pre TFromIdx < std::tuple_size<value_type>::value
-                template<std::size_t TFromIdx>
-                static constexpr std::size_t max_length_from() {
-                    return base_impl_type::template max_length_from<TFromIdx>();
-                }
+                using base_impl_type::max_length_from;
 
                 /// @brief Get maximal length that is required to serialise specified bundled fields.
                 /// @tparam TUntilIdx Index of the field (not included) until which the counting must be performed.
                 /// @return Minimal number of bytes required to serialise the specified member fields.
                 /// @pre TUntilIdx <= std::tuple_size<value_type>::value
-                template<std::size_t TUntilIdx>
-                static constexpr std::size_t max_length_until() {
-                    return base_impl_type::template max_length_until<TUntilIdx>();
-                }
+                using base_impl_type::max_length_until;
 
                 /// @brief Get maximal length that is required to serialise specified bundled fields.
                 /// @tparam TFromIdx Index of the field (included) from which the counting must start.
@@ -239,10 +202,7 @@ namespace nil {
                 /// @return Minimal number of bytes required to serialise the specified member fields.
                 /// @pre TUntilIdx <= std::tuple_size<value_type>::value
                 /// @pre TFromIdx < TUntilIdx
-                template<std::size_t TFromIdx, std::size_t TUntilIdx>
-                static constexpr std::size_t max_length_from_until() {
-                    return base_impl_type::template max_length_from_until<TFromIdx, TUntilIdx>();
-                }
+                using base_impl_type::max_length_from_until;
 
                 /// @brief Read field value from input data sequence
                 /// @details Invokes read() member function over every bundled field.
@@ -250,10 +210,7 @@ namespace nil {
                 /// @param[in] size Number of bytes available for reading.
                 /// @return Status of read operation.
                 /// @post Iterator is advanced.
-                template<typename TIter>
-                status_type read(TIter &iter, std::size_t size) {
-                    return base_impl_type::read(iter, size);
-                }
+                using base_impl_type::read;
 
                 /// @brief Read selected number of member fields (from specified index).
                 /// @details Similar to @ref read(), but invokes @b read() member function
@@ -265,10 +222,7 @@ namespace nil {
                 /// @return Status of read operation.
                 /// @pre TFromIdx < std::tuple_size<value_type>
                 /// @post Iterator is advanced.
-                template<std::size_t TFromIdx, typename TIter>
-                status_type read_from(TIter &iter, std::size_t size) {
-                    return base_impl_type::template read_from<TFromIdx>(iter, size);
-                }
+                using base_impl_type::read_from;
 
                 /// @brief Read selected number of member fields (until specified index).
                 /// @details Similar to @ref read(), but invokes @b read() member function
@@ -280,10 +234,7 @@ namespace nil {
                 /// @return Status of read operation.
                 /// @pre TUntilIdx <= std::tuple_size<value_type>
                 /// @post Iterator is advanced.
-                template<std::size_t TUntilIdx, typename TIter>
-                status_type read_until(TIter &iter, std::size_t size) {
-                    return base_impl_type::template read_until<TUntilIdx>(iter, size);
-                }
+                using base_impl_type::read_until;
 
                 /// @brief Read selected number of member fields (between specified indices).
                 /// @details Similar to @ref read(), but invokes @b read() member function
@@ -298,20 +249,14 @@ namespace nil {
                 /// @pre TUntilIdx <= std::tuple_size<value_type>
                 /// @pre TFromIdx < TUntilIdx
                 /// @post Iterator is advanced.
-                template<std::size_t TFromIdx, std::size_t TUntilIdx, typename TIter>
-                status_type read_from_until(TIter &iter, std::size_t size) {
-                    return base_impl_type::template read_from_until<TFromIdx, TUntilIdx>(iter, size);
-                }
+                using base_impl_type::read_from_until;
 
                 /// @brief Read field value from input data sequence without error check and status report.
                 /// @details Similar to @ref read(), but doesn't perform any correctness
                 ///     checks and doesn't report any failures.
                 /// @param[in, out] iter Iterator to read the data.
                 /// @post Iterator is advanced.
-                template<typename TIter>
-                void read_no_status(TIter &iter) {
-                    base_impl_type::read_no_status(iter);
-                }
+                using base_impl_type::read_no_status;
 
                 /// @brief Read selected member fields from input data sequence
                 ///     without error check and status report.
@@ -322,10 +267,7 @@ namespace nil {
                 /// @param[in, out] iter Iterator to read the data.
                 /// @pre TFromIdx < std::tuple_size<value_type>
                 /// @post Iterator is advanced.
-                template<std::size_t TFromIdx, typename TIter>
-                void read_from_no_status(TIter &iter) {
-                    base_impl_type::template read_from_no_status<TFromIdx>(iter);
-                }
+                using base_impl_type::read_from_no_status;
 
                 /// @brief Read selected member fields from input data sequence
                 ///     without error check and status report.
@@ -336,10 +278,7 @@ namespace nil {
                 /// @param[in, out] iter Iterator to read the data.
                 /// @pre TUntilIdx <= std::tuple_size<value_type>
                 /// @post Iterator is advanced.
-                template<std::size_t TUntilIdx, typename TIter>
-                void read_until_no_status(TIter &iter) {
-                    base_impl_type::template read_until_no_status<TUntilIdx>(iter);
-                }
+                using base_impl_type::read_until_no_status;
 
                 /// @brief Read selected member fields from input data sequence
                 ///     without error check and status report.
@@ -353,10 +292,7 @@ namespace nil {
                 /// @pre TUntilIdx <= std::tuple_size<value_type>
                 /// @pre TFromIdx < TUntilIdx
                 /// @post Iterator is advanced.
-                template<std::size_t TFromIdx, std::size_t TUntilIdx, typename TIter>
-                void read_from_until_no_status(TIter &iter) {
-                    base_impl_type::template read_from_until_no_status<TFromIdx, TUntilIdx>(iter);
-                }
+                using base_impl_type::read_from_until_no_status;
 
                 /// @brief Write current field value to output data sequence
                 /// @details Invokes write() member function over every bundled field.
@@ -364,10 +300,7 @@ namespace nil {
                 /// @param[in] size Maximal number of bytes that can be written.
                 /// @return Status of write operation.
                 /// @post Iterator is advanced.
-                template<typename TIter>
-                status_type write(TIter &iter, std::size_t size) const {
-                    return base_impl_type::write(iter, size);
-                }
+                using base_impl_type::write;
 
                 /// @brief Write selected member fields to output data sequence.
                 /// @details Similar to @ref write(), but invokes @b write member
@@ -379,10 +312,7 @@ namespace nil {
                 /// @return Status of write operation.
                 /// @pre TFromIdx < std::tuple_size<value_type>
                 /// @post Iterator is advanced.
-                template<std::size_t TFromIdx, typename TIter>
-                status_type write_from(TIter &iter, std::size_t size) const {
-                    return base_impl_type::template write_from<TFromIdx>(iter, size);
-                }
+                using base_impl_type::write_from;
 
                 /// @brief Write selected member fields to output data sequence.
                 /// @details Similar to @ref write(), but invokes @b write member
@@ -394,10 +324,7 @@ namespace nil {
                 /// @return Status of write operation.
                 /// @pre TUntilIdx <= std::tuple_size<value_type>
                 /// @post Iterator is advanced.
-                template<std::size_t TUntilIdx, typename TIter>
-                status_type write_until(TIter &iter, std::size_t size) const {
-                    return base_impl_type::template write_until<TUntilIdx>(iter, size);
-                }
+                using base_impl_type::write_until;
 
                 /// @brief Write selected member fields to output data sequence.
                 /// @details Similar to @ref write(), but invokes @b write member
@@ -412,20 +339,14 @@ namespace nil {
                 /// @pre TUntilIdx <= std::tuple_size<value_type>
                 /// @pre TFromIdx < TUntilIdx
                 /// @post Iterator is advanced.
-                template<std::size_t TFromIdx, std::size_t TUntilIdx, typename TIter>
-                status_type write_from_until(TIter &iter, std::size_t size) const {
-                    return base_impl_type::template write_from_until<TFromIdx, TUntilIdx>(iter, size);
-                }
+                using base_impl_type::write_from_until;
 
                 /// @brief Write current field value to output data sequence  without error check and status report.
                 /// @details Similar to @ref write(), but doesn't perform any correctness
                 ///     checks and doesn't report any failures.
                 /// @param[in, out] iter Iterator to write the data.
                 /// @post Iterator is advanced.
-                template<typename TIter>
-                void write_no_status(TIter &iter) const {
-                    base_impl_type::write_no_status(iter);
-                }
+                using base_impl_type::write_no_status;
 
                 /// @brief Write selected member fields to output data sequence
                 ///     without error check and status report.
@@ -436,10 +357,7 @@ namespace nil {
                 /// @param[in, out] iter Iterator to read the data.
                 /// @pre TFromIdx < std::tuple_size<value_type>
                 /// @post Iterator is advanced.
-                template<std::size_t TFromIdx, typename TIter>
-                void write_from_no_status(TIter &iter) {
-                    base_impl_type::template write_from_no_status<TFromIdx>(iter);
-                }
+                using base_impl_type::write_from_no_status;
 
                 /// @brief Write selected member fields to output data sequence
                 ///     without error check and status report.
@@ -450,10 +368,7 @@ namespace nil {
                 /// @param[in, out] iter Iterator to read the data.
                 /// @pre TUntilIdx <= std::tuple_size<value_type>
                 /// @post Iterator is advanced.
-                template<std::size_t TUntilIdx, typename TIter>
-                void write_until_no_status(TIter &iter) {
-                    base_impl_type::template write_until_no_status<TUntilIdx>(iter);
-                }
+                using base_impl_type::write_until_no_status;
 
                 /// @brief Write selected member fields to output data sequence
                 ///     without error check and status report.
@@ -466,33 +381,26 @@ namespace nil {
                 /// @param[in, out] iter Iterator to read the data.
                 /// @pre TUntilIdx <= std::tuple_size<value_type>
                 /// @post Iterator is advanced.
-                template<std::size_t TFromIdx, std::size_t TUntilIdx, typename TIter>
-                void write_from_until_no_status(TIter &iter) {
-                    base_impl_type::template write_from_until_no_status<TFromIdx, TUntilIdx>(iter);
-                }
+                using base_impl_type::write_from_until_no_status;
 
                 /// @brief Check validity of all the bundled fields.
-                bool valid() const {
-                    return base_impl_type::valid();
-                }
+                using base_impl_type::valid;
 
                 /// @brief Refresh the field's contents
                 /// @details Calls refresh() member function on every member field, will
                 ///     return @b true if any of the calls returns @b true.
-                bool refresh() {
-                    return base_impl_type::refresh();
-                }
+                using base_impl_type::refresh;
 
                 /// @brief Compile time check if this class is version dependent
                 static constexpr bool is_version_dependent() {
                     return parsed_options_type::has_custom_version_update || base_impl_type::is_version_dependent();
                 }
 
-                /// @brief Get version of the field.
-                /// @details Exists only if @ref nil::marshalling::option::version_storage option has been provided.
-                version_type get_version() const {
-                    return base_impl_type::get_version();
-                }
+                // /// @brief Get version of the field.
+                // /// @details Exists only if @ref nil::marshalling::option::version_storage option has been provided.
+                // version_type get_version() const {
+                //     return base_impl_type::get_version();
+                // }
 
                 /// @brief Default implementation of version update.
                 /// @return @b true in case the field contents have changed, @b false otherwise

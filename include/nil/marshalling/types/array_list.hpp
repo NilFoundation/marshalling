@@ -100,10 +100,10 @@ namespace nil {
 
             public:
                 /// @brief endian_type used for serialization.
-                using endian_type = typename base_impl_type::endian_type;
+                using typename base_impl_type::endian_type;
 
                 /// @brief Version type
-                using version_type = typename base_impl_type::version_type;
+                using typename base_impl_type::version_type;
 
                 /// @brief All the options provided to this class bundled into struct.
                 using parsed_options_type = detail::options_parser<TOptions...>;
@@ -117,10 +117,10 @@ namespace nil {
                 ///     value_type is std::vector<TElement>, otherwise it becomes
                 ///     nil::marshalling::container::static_vector<TElement, TSize>, where TSize is a size
                 ///     provided to nil::marshalling::option::fixed_size_storage option.
-                using value_type = typename base_impl_type::value_type;
+                using typename base_impl_type::value_type;
 
                 /// @brief Type of the element.
-                using element_type = typename base_impl_type::element_type;
+                using typename base_impl_type::element_type;
 
                 /// @brief Default constructor
                 array_list() = default;
@@ -149,19 +149,10 @@ namespace nil {
                 array_list &operator=(array_list &&) = default;
 
                 /// @brief Get access to the value storage.
-                value_type &value() {
-                    return base_impl_type::value();
-                }
-
-                /// @brief Get access to the value storage.
-                const value_type &value() const {
-                    return base_impl_type::value();
-                }
+                using base_impl_type::value;
 
                 /// @brief Get length of serialized data
-                constexpr std::size_t length() const {
-                    return base_impl_type::length();
-                }
+                using base_impl_type::length;
 
                 /// @brief Read field value from input data sequence
                 /// @details By default, the read operation will try to consume all the
@@ -174,20 +165,14 @@ namespace nil {
                 /// @param[in] len Number of bytes available for reading.
                 /// @return Status of read operation.
                 /// @post Iterator is advanced.
-                template<typename TIter>
-                status_type read(TIter &iter, std::size_t len) {
-                    return base_impl_type::read(iter, len);
-                }
+                using base_impl_type::read;
 
                 /// @brief Read field value from input data sequence without error check and status report.
                 /// @details Similar to @ref read(), but doesn't perform any correctness
                 ///     checks and doesn't report any failures.
                 /// @param[in, out] iter Iterator to read the data.
                 /// @post Iterator is advanced.
-                template<typename TIter>
-                void read_no_status(TIter &iter) {
-                    base_impl_type::read_no_status(iter);
-                }
+                using base_impl_type::read_no_status;
 
                 /// @brief Write current field value to output data sequence
                 /// @details By default, the write operation will write all the
@@ -201,46 +186,32 @@ namespace nil {
                 /// @param[in] len Maximal number of bytes that can be written.
                 /// @return Status of write operation.
                 /// @post Iterator is advanced.
-                template<typename TIter>
-                status_type write(TIter &iter, std::size_t len) const {
-                    return base_impl_type::write(iter, len);
-                }
+                using base_impl_type::write;
 
                 /// @brief Write current field value to output data sequence  without error check and status report.
                 /// @details Similar to @ref write(), but doesn't perform any correctness
                 ///     checks and doesn't report any failures.
                 /// @param[in, out] iter Iterator to write the data.
                 /// @post Iterator is advanced.
-                template<typename TIter>
-                void write_no_status(TIter &iter) const {
-                    base_impl_type::write_no_status(iter);
-                }
+                using base_impl_type::write_no_status;
 
                 /// @brief Check validity of the field value.
                 /// @details The collection is valid if all the elements are valid. In case
                 ///     nil::marshalling::option::contents_validator option is used, the validator,
                 ///     it provides, is invoked IN ADDITION to the validation of the elements.
                 /// @return true in case the field's value is valid, false otherwise.
-                bool valid() const {
-                    return base_impl_type::valid();
-                }
+                using base_impl_type::valid;
 
                 /// @brief Refresh the field.
                 /// @details Calls refresh() on all the elements (if they are fields and not raw bytes).
                 /// @brief Returns true if any of the elements has been updated, false otherwise.
-                bool refresh() {
-                    return base_impl_type::refresh();
-                }
+                using base_impl_type::refresh;
 
                 /// @brief Get minimal length that is required to serialise field of this type.
-                static constexpr std::size_t min_length() {
-                    return base_impl_type::min_length();
-                }
+                using base_impl_type::min_length;
 
                 /// @brief Get maximal length that is required to serialise field of this type.
-                static constexpr std::size_t max_length() {
-                    return base_impl_type::max_length();
-                }
+                using base_impl_type::max_length;
 
                 /// @brief Force number of elements that must be read in the next read()
                 ///     invocation.
@@ -297,11 +268,11 @@ namespace nil {
                     return parsed_options_type::has_custom_version_update || base_impl_type::is_version_dependent();
                 }
 
-                /// @brief Get version of the field.
-                /// @details Exists only if @ref nil::marshalling::option::version_storage option has been provided.
-                version_type get_version() const {
-                    return base_impl_type::get_version();
-                }
+                // /// @brief Get version of the field.
+                // /// @details Exists only if @ref nil::marshalling::option::version_storage option has been provided.
+                // version_type get_version() const {
+                //     return base_impl_type::get_version();
+                // }
 
                 /// @brief Default implementation of version update.
                 /// @return @b true in case the field contents have changed, @b false otherwise

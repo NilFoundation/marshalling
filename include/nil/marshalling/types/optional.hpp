@@ -62,10 +62,10 @@ namespace nil {
 
             public:
                 /// @brief endian_type used for serialization.
-                using endian_type = typename base_impl_type::endian_type;
+                using typename base_impl_type::endian_type;
 
                 /// @brief Version type
-                using version_type = typename base_impl_type::version_type;
+                using typename base_impl_type::version_type;
 
                 /// @brief All the options provided to this class bundled into struct.
                 using parsed_options_type = detail::options_parser<TOptions...>;
@@ -155,72 +155,44 @@ namespace nil {
                 }
 
                 /// @brief Get an access to the wrapped field object
-                field_type &field() {
-                    return base_impl_type::field();
-                }
+                using base_impl_type::field;
 
                 /// @brief Get an access to the wrapped field object
-                const field_type &field() const {
-                    return base_impl_type::field();
-                }
-
-                /// @brief Get an access to the wrapped field object
-                value_type &value() {
-                    return base_impl_type::value();
-                }
-
-                /// @brief Get an access to the wrapped field object
-                const value_type &value() const {
-                    return base_impl_type::value();
-                }
+                using base_impl_type::value;
 
                 /// @brief Get current optional mode
-                Mode get_mode() const {
-                    return base_impl_type::get_mode();
-                }
+                using base_impl_type::get_mode;
 
                 /// @brief Get optional mode
-                void set_mode(Mode val) {
-                    base_impl_type::set_mode(val);
-                }
+                using base_impl_type::set_mode;
 
                 /// @brief Get length required to serialise the current field value.
                 /// @return If current mode is optional_mode::exists, then the function
                 ///     returns whatever length() member function of the wrapped field
                 ///     returns. Otherwise (for both optional_mode::missing and
                 ///     optional_mode::tentative) 0 is returned.
-                std::size_t length() const {
-                    return base_impl_type::length();
-                }
+                using base_impl_type::length;
 
                 /// @brief Get minimal length that is required to serialise field of this type.
                 /// @return Same as field_type::min_length()
-                static constexpr std::size_t min_length() {
-                    return base_impl_type::min_length();
-                }
+                using base_impl_type::min_length;
 
                 /// @brief Get maximal length that is required to serialise field of this type.
                 /// @return Same as field_type::max_length()
-                static constexpr std::size_t max_length() {
-                    return base_impl_type::max_length();
-                }
+                using base_impl_type::max_length;
 
                 /// @brief Check validity of the field value.
                 /// @return If field is marked to be missing (mode is optional_mode::missing),
                 ///     "true" is returned, otherwise valid() member function of the wrapped
                 ///     field is called.
-                bool valid() const {
-                    return base_impl_type::valid();
-                }
+                using base_impl_type::valid;
 
                 /// @brief Refresh the field's value
                 /// @details Will invoke the refresh() member function of the contained
                 ///     field, only if it is marked as "exists", otherwise @b false will be
                 ///     returned.
                 /// @return @b true if the value has been updated, @b false otherwise
-                bool refresh() {
-                    return base_impl_type::refresh();
-                }
+                using base_impl_type::refresh;
 
                 /// @brief Read field value from input data sequence
                 /// @details If field is marked as missing (mode is optional_mode::missing),
@@ -237,20 +209,14 @@ namespace nil {
                 /// @param[in] len Number of bytes available for reading.
                 /// @return Status of read operation.
                 /// @post Iterator is advanced.
-                template<typename TIter>
-                status_type read(TIter &iter, std::size_t len) {
-                    return base_impl_type::read(iter, len);
-                }
+                using base_impl_type::read;
 
                 /// @brief Read field value from input data sequence without error check and status report.
                 /// @details Similar to @ref read(), but doesn't perform any correctness
                 ///     checks and doesn't report any failures.
                 /// @param[in, out] iter Iterator to read the data.
                 /// @post Iterator is advanced.
-                template<typename TIter>
-                void read_no_status(TIter &iter) {
-                    base_impl_type::read_no_status(iter);
-                }
+                using base_impl_type::read_no_status;
 
                 /// @brief Write current field value to output data sequence
                 /// @details If field is marked as missing (mode is optional_mode::missing),
@@ -266,20 +232,14 @@ namespace nil {
                 /// @param[in] len Maximal number of bytes that can be written.
                 /// @return Status of write operation.
                 /// @post Iterator is advanced.
-                template<typename TIter>
-                status_type write(TIter &iter, std::size_t len) const {
-                    return base_impl_type::write(iter, len);
-                }
+                using base_impl_type::write;
 
                 /// @brief Write current field value to output data sequence  without error check and status report.
                 /// @details Similar to @ref write(), but doesn't perform any correctness
                 ///     checks and doesn't report any failures.
                 /// @param[in, out] iter Iterator to write the data.
                 /// @post Iterator is advanced.
-                template<typename TIter>
-                void write_no_status(TIter &iter) const {
-                    base_impl_type::write_no_status(iter);
-                }
+                using base_impl_type::write_no_status;
 
                 /// @brief Compile time check if this class is version dependent
                 static constexpr bool is_version_dependent() {

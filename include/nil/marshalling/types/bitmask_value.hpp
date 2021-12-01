@@ -90,10 +90,10 @@ namespace nil {
                 using base_impl_type = TFieldBase;
             public:
                 /// @brief endian_type used for serialization.
-                using endian_type = typename base_impl_type::endian_type;
+                using typename base_impl_type::endian_type;
 
                 /// @brief Version type
-                using version_type = typename base_impl_type::version_type;
+                using typename base_impl_type::version_type;
 
                 /// @brief All the options provided to this class bundled into struct.
                 using parsed_options_type = detail::options_parser<TOptions...>;

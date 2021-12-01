@@ -77,10 +77,10 @@ namespace nil {
 
             public:
                 /// @brief endian_type used for serialization.
-                using endian_type = typename base_impl_type::endian_type;
+                using typename base_impl_type::endian_type;
 
                 /// @brief Version type
-                using version_type = typename base_impl_type::version_type;
+                using typename base_impl_type::version_type;
 
                 /// @brief All the options provided to this class bundled into struct.
                 using parsed_options_type = detail::options_parser<TOptions...>;
@@ -93,7 +93,7 @@ namespace nil {
                 ///     value_type is std::string, otherwise it becomes
                 ///     nil::marshalling::container::static_string<TSize>, where TSize is a size
                 ///     provided to nil::marshalling::option::fixed_size_storage option.
-                using value_type = typename base_impl_type::value_type;
+                using typename base_impl_type::value_type;
 
                 /// @brief Default constructor
                 string() = default;
@@ -164,30 +164,17 @@ namespace nil {
                 }
 
                 /// @brief Get access to the value storage.
-                value_type &value() {
-                    return base_impl_type::value();
-                }
-
-                /// @brief Get access to the value storage.
-                const value_type &value() const {
-                    return base_impl_type::value();
-                }
+                using base_impl_type::value;
 
                 /// @brief Get length of serialized data
-                std::size_t length() const {
-                    return base_impl_type::length();
-                }
+                using base_impl_type::length;
 
                 /// @brief Check validity of the field value.
-                bool valid() const {
-                    return base_impl_type::valid();
-                }
+                using base_impl_type::valid;
 
                 /// @brief Refresh the field's value
                 /// @return @b true if the value has been updated, @b false otherwise
-                bool refresh() {
-                    return base_impl_type::refresh();
-                }
+                using base_impl_type::refresh;
 
                 /// @brief Write current field value to output data sequence
                 /// @details By default, the write operation will write all the
@@ -201,30 +188,20 @@ namespace nil {
                 /// @param[in] len Maximal number of bytes that can be written.
                 /// @return Status of write operation.
                 /// @post Iterator is advanced.
-                template<typename TIter>
-                status_type write(TIter &iter, std::size_t len) const {
-                    return base_impl_type::write(iter, len);
-                }
+                using base_impl_type::write;
 
                 /// @brief Write current field value to output data sequence  without error check and status report.
                 /// @details Similar to @ref write(), but doesn't perform any correctness
                 ///     checks and doesn't report any failures.
                 /// @param[in, out] iter Iterator to write the data.
                 /// @post Iterator is advanced.
-                template<typename TIter>
-                void write_no_status(TIter &iter) const {
-                    base_impl_type::write_no_status(iter);
-                }
+                using base_impl_type::write_no_status;
 
                 /// @brief Get minimal length that is required to serialise field of this type.
-                static constexpr std::size_t min_length() {
-                    return base_impl_type::min_length();
-                }
+                using base_impl_type::min_length;
 
                 /// @brief Get maximal length that is required to serialise field of this type.
-                static constexpr std::size_t max_length() {
-                    return base_impl_type::max_length();
-                }
+                using base_impl_type::max_length;
 
                 /// @brief Force number of characters that must be read in the next read()
                 ///     invocation.

@@ -105,10 +105,10 @@ namespace nil {
 
             public:
                 /// @brief endian_type used for serialization.
-                using endian_type = typename base_impl_type::endian_type;
+                using typename base_impl_type::endian_type;
 
                 /// @brief Version type
-                using version_type = typename base_impl_type::version_type;
+                using typename base_impl_type::version_type;
 
                 /// @brief All the options provided to this class bundled into struct.
                 using parsed_options_type = detail::options_parser<TOptions...>;
@@ -119,12 +119,12 @@ namespace nil {
                 /// @brief Value type.
                 /// @details Type of the internal buffer used to store contained field,
                 ///     should not be used in normal operation.
-                using value_type = typename base_impl_type::value_type;
+                using typename base_impl_type::value_type;
 
                 /// @brief All the supported types.
                 /// @details Same as @b TMemebers template argument, i.e. it is @b std::tuple
                 ///     of all the wrapped fields.
-                using members_type = typename base_impl_type::members_type;
+                using typename base_impl_type::members_type;
 
                 /// @brief Default constructor
                 /// @details Invokes default constructor of every wrapped field
@@ -140,36 +140,22 @@ namespace nil {
 
                 /// @brief Get access to the internal storage buffer.
                 /// @details Should not be used in normal operation.
-                value_type &value() {
-                    return base_impl_type::value();
-                }
-
-                /// @brief Get access to the internal storage buffer.
-                /// @details Should not be used in normal operation.
-                const value_type &value() const {
-                    return base_impl_type::value();
-                }
+                using base_impl_type::value;
 
                 /// @brief Get length required to serialise contained fields.
                 /// @details If the field doesn't contain a valid instance of other
                 ///     field, the reported length is 0, otherwise the length of the
                 ///     contained field is reported.
                 /// @return Number of bytes it will take to serialise the field value.
-                std::size_t length() const {
-                    return base_impl_type::length();
-                }
+                using base_impl_type::length;
 
                 /// @brief Get minimal length that is required to serialise all possible contained fields.
                 /// @return Always returns 0.
-                static constexpr std::size_t min_length() {
-                    return base_impl_type::min_length();
-                }
+                using base_impl_type::min_length;
 
                 /// @brief Get maximal length that is required to serialise all possible contained fields.
                 /// @return Maximal number of bytes required serialise the field value.
-                static constexpr std::size_t max_length() {
-                    return base_impl_type::max_length();
-                }
+                using base_impl_type::max_length;
 
                 /// @brief Read field value from input data sequence
                 /// @details Invokes read() member function over every possible field
@@ -178,10 +164,7 @@ namespace nil {
                 /// @param[in] size Number of bytes available for reading.
                 /// @return Status of read operation.
                 /// @post Iterator is advanced.
-                template<typename TIter>
-                status_type read(TIter &iter, std::size_t size) {
-                    return base_impl_type::read(iter, size);
-                }
+                using base_impl_type::read;
 
                 /// @brief Read operation without error check and status report is not supported.
                 template<typename TIter>
@@ -195,41 +178,29 @@ namespace nil {
                 /// @param[in] size Maximal number of bytes that can be written.
                 /// @return Status of write operation.
                 /// @post Iterator is advanced.
-                template<typename TIter>
-                status_type write(TIter &iter, std::size_t size) const {
-                    return base_impl_type::write(iter, size);
-                }
+                using base_impl_type::write;
 
                 /// @brief Write current field value to output data sequence  without error check and status report.
                 /// @details Similar to @ref write(), but doesn't perform any correctness
                 ///     checks and doesn't report any failures.
                 /// @param[in, out] iter Iterator to write the data.
                 /// @post Iterator is advanced.
-                template<typename TIter>
-                void write_no_status(TIter &iter) const {
-                    base_impl_type::write_no_status(iter);
-                }
+                using base_impl_type::write_no_status;
 
                 /// @brief Check validity of all the contained field.
                 /// @details Returns @b false if doesn't contain any field.
-                bool valid() const {
-                    return base_impl_type::valid();
-                }
+                using base_impl_type::valid;
 
                 /// @brief Refresh the field's value
                 /// @details Invokes refresh() member function of the current field
                 ///     if such exists, otherwise returns false.
                 /// @return @b true if the value has been updated, @b false otherwise
-                bool refresh() {
-                    return base_impl_type::refresh();
-                }
+                using base_impl_type::refresh;
 
                 /// @brief Get index of the current field (within the @ref Members tuple).
                 /// @details If the variant field doesn't contain any valid field, the
                 ///     returned index is equivalent to size of the @ref Members tuple.
-                std::size_t current_field() const {
-                    return base_impl_type::current_field();
-                }
+                using base_impl_type::current_field;
 
                 /// @brief Select type of the variant field.
                 /// @details If the same index has been selected before, the function does
@@ -238,9 +209,7 @@ namespace nil {
                 ///     If provided index is equal or exceeds the size of the @ref Members
                 ///     tuple, no new field is constructed.
                 /// @param[in] idx Index of the type within @ref Members tuple.
-                void select_field(std::size_t idx) {
-                    base_impl_type::select_field(idx);
-                }
+                using base_impl_type::select_field;
 
                 /// @brief Execute provided function object with current field as
                 ///     parameter.
