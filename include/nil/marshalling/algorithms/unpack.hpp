@@ -119,7 +119,7 @@ namespace nil {
             using marshalling_type = typename is_compatible<TInput>::template type<TEndian>;
 
             marshalling_type m_val = marshalling_type(val);
-            std::vector<bool> result(m_val.bit_length());
+            std::vector<bool> result(m_val.template length<1>());
             auto buffer_begin = result.begin();
             status = m_val.write(buffer_begin, result.size());
 
