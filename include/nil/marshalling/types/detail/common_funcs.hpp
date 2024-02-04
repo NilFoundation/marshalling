@@ -190,6 +190,40 @@ namespace nil {
                     }
                 };
 
+                class zero_count {
+                public:
+                    static void set_enable(bool val) {
+                        enable_ = val;
+                    }
+
+                    static bool is_enable() {
+                        return enable_;
+                    }
+
+                    static void inc() {
+                        zero_num_++;
+                    }
+
+                    static void dec() {
+                        zero_num_ = (zero_num_ > 0) ? zero_num_ - 1 : 0;
+                    }
+
+                    static void set(std::size_t val) {
+                        zero_num_ = val;
+                    }
+
+                    static void reset() {
+                        zero_num_ = 0;
+                    }
+
+                    static std::size_t get() {
+                        return zero_num_;
+                    }
+                private:
+                    inline static std::size_t zero_num_;
+                    inline static bool enable_;
+                };
+
             }    // namespace detail
         }        // namespace types
     }            // namespace marshalling

@@ -224,7 +224,10 @@ namespace nil {
 
                     template<typename TIter>
                     status_type write(TIter &iter, std::size_t len) const {
-                        return common_funcs::write_sequence(*this, iter, len);
+                        nil::marshalling::types::detail::zero_count::reset();
+                        const auto status = common_funcs::write_sequence(*this, iter, len);
+                        nil::marshalling::types::detail::zero_count::reset();
+                        return status;
                     }
 
                     template<typename TIter>
@@ -327,7 +330,9 @@ namespace nil {
                                 true_length = elem.length();
                             }
                             MARSHALLING_ASSERT(true_length <= len);
-                            len -= true_length;
+                            if (nil::marshalling::types::detail::zero_count::get() == 0) {
+                                len -= true_length;
+                            }
                         }
                         return es;
                     }
@@ -522,6 +527,7 @@ namespace nil {
                     template<typename TIter>
                     status_type read_internal_n(std::size_t count, TIter &iter, std::size_t len, field_elem_tag) {
                         clear();
+                        nil::marshalling::types::detail::zero_count::reset();
                         while (0 < count) {
                             auto &elem = create_back();
                             status_type es = read_element(elem, iter, len);
@@ -533,6 +539,7 @@ namespace nil {
                             --count;
                         }
 
+                        nil::marshalling::types::detail::zero_count::reset();
                         return status_type::success;
                     }
 
