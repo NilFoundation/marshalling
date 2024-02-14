@@ -62,6 +62,8 @@ namespace nil {
 
                     static const std::size_t length_ = total_bits / std::numeric_limits<std::uint8_t>::digits;
                     static_assert(0U < length_, "Serialised length is expected to be greater than 0");
+                    static_assert(length_ <= 8U, "Serialised length is expected to be less than or equal to 8");
+
                     using serialized_type = typename processing::size_to_type<length_, false>::type;
 
                     using fixed_integral_type = types::integral<TFieldBase, serialized_type, option::fixed_length<length_>>;
